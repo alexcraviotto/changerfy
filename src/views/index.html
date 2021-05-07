@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changerfy</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body style="background-image: url('../assets/background.svg');">
+    <div id="header" class="text-center my-10 ">
+        <h1 class="text-4xl tracking-wider text-white font-bold">changerfy</h1>
+    </div>
+    <div class="grid grid-cols-6 m-40">
+        <button id="oldUI" type="button" class="col-start-1 col-end-3 bg-gray-50 font-bold rounded-full h-12">
+            Old UI
+        </button>
+
+        <button id="newUI" class="col-end-7 col-span-2 bg-gray-50 font-bold rounded-full h-12">
+            New UI
+        </button>
+    </div>
+    <script>
+        const {ipcRenderer} = require('electron');
+        const oldUI = document.getElementById('oldUI');
+        const newUI = document.getElementById('newUI');
+        oldUI.addEventListener('click', () => {
+            ipcRenderer.send('old-ui')
+        });
+        newUI.addEventListener('click', () => {
+            ipcRenderer.send('new-ui')
+        });
+        var shell = require('electron').shell;
+    //open links externally by default
+        $(document).on('click', 'a[href^="http"]', function(event) {
+            event.preventDefault();
+            shell.openExternal(this.href);
+        });
+
+    </script>
+</body>
+</html>
